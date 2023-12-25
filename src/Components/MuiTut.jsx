@@ -33,12 +33,12 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '20px',
     marginTop: 20,
     '&:hover': {
-      backgroundColor: 'gray',
+      // backgroundColor: 'gray',
       color: 'black'
     }
   },
   form: {
-    // border: '2px solid gray',
+    border: '2px solid gray',
     borderRadius: 20,
     padding: theme.spacing(2, 10),
   },
