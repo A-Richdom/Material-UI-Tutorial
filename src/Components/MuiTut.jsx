@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '20px',
     marginTop: 20,
     '&:hover': {
-      // backgroundColor: 'gray',
+      backgroundColor: 'gray',
       color: 'black'
     }
   },
