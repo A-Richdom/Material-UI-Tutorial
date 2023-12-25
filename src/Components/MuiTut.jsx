@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   form: {
-    border: '2px solid gray',
+    // border: '2px solid gray',
     borderRadius: 20,
     padding: theme.spacing(2, 10),
   },
