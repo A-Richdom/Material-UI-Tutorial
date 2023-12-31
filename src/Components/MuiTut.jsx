@@ -4,6 +4,11 @@ import { Typography,
           ButtonGroup, 
           Container,
           TextField,
+          RadioGroup,
+          FormControlLabel,
+          Radio,
+          FormLabel,
+          FormControl,
 
          
         
@@ -69,6 +74,7 @@ const MuiTut = () => {
   const [details, setDetails] = useState('')
   const [titleError, setTitleError] = useState(false)
   const [detailsError, setDetailsError] = useState(false)
+  const [category, setCategory] = useState('todos')
 
   // HANDLE SUBMIT
   const handleSubmit = (e) => {
@@ -86,8 +92,8 @@ const MuiTut = () => {
       setDetailsError(true)
     }
 
-    if (title && details) {
-      console.log(title, details);
+    if (title && details && category) {
+      console.log(title, details, category);
     }
   };
 
@@ -148,6 +154,15 @@ const MuiTut = () => {
             error={detailsError}
             
           />
+
+          <FormControl>
+            <FormLabel>Note Category</FormLabel>
+            <RadioGroup value={category} onChange={(e) => { setCategory(e.target.value)}} >
+              <FormControlLabel value="money" control={<Radio/>} label="Money" />
+              <FormControlLabel value="todos" control={<Radio/>} label="Todos" />
+              <FormControlLabel value="reminder" control={<Radio/>} label="Reminder"/>
+            </RadioGroup>
+          </FormControl>
 
             <Button 
               className={classes.btn}
