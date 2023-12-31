@@ -138,7 +138,6 @@ const MuiTut = () => {
             fullWidth
             required
             error={titleError}
-            
           />
 
           <TextField className={classes.field}
