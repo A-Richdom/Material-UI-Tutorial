@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
   //   borderColor: 'yellow', 
   // },
   marginTop: 20,
-  marginButtom: 20,
+  marginBottom: 20,
   display: 'block'  
   }
 
@@ -78,7 +78,9 @@ const MuiTut = () => {
 
     if (title === '') {
       setTitleError(true)
+      return false;
     }
+  
 
     if (details === '') {
       setDetailsError(true)
@@ -122,10 +124,13 @@ const MuiTut = () => {
 
         <form className={classes.form} onSubmit={handleSubmit} > <br />
           <TextField
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) => 
+              {console.log('Title changed', e.target.value),
+              setTitle(e.target.value)}}
             label='Title'
+            name='title'
             variant='outlined'
-            color='secondary'
+            // color='secondary'
             fullWidth
             required
             error={titleError}
@@ -135,8 +140,9 @@ const MuiTut = () => {
           <TextField className={classes.field}
             onChange={(e) => setDetails(e.target.value)}
             label='Details'
+            name='details'
             variant='outlined'
-            color='secondary'
+            // color='secondary'
             multiline
             rows={4}
             fullWidth
