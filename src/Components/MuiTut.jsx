@@ -89,8 +89,6 @@ const MuiTut = () => {
     if (title && details) {
       console.log(title, details);
     }
-
-
   };
 
 
