@@ -1,4 +1,4 @@
-{
+
     const notes = [
       {
         "title": "Ridwan goes to school",
@@ -20,5 +20,5 @@
       }
 
     ]
-  };
+  
   
