@@ -87,7 +87,6 @@ const MuiTut = () => {
       return false;
     }
   
-
     if (details === '') {
       setDetailsError(true)
     }
@@ -95,6 +94,8 @@ const MuiTut = () => {
     if (title && details && category) {
       console.log(title, details, category);
     }
+
+
   };
 
 
