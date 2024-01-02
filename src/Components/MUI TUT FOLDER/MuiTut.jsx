@@ -135,7 +135,7 @@ const MuiTut = () => {
             label='Title'
             name='title'
             variant='outlined'
-            color='secondary'
+            // color='secondary'
             fullWidth
             required
             error={titleError}
