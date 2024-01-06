@@ -147,7 +147,7 @@ const MuiTut = () => {
             label='Details'
             name='details'
             variant='outlined'
-            // color='secondary'/
+            color='secondary'
             multiline
             rows={4}
             fullWidth
