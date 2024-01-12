@@ -9,14 +9,14 @@ import { Typography,
           Radio,
           FormLabel,
           FormControl,
-
-         
+   
         
         } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
 import AcUnitIcon from '@material-ui/icons/AcUnit';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -95,7 +95,6 @@ const MuiTut = () => {
       console.log(title, details, category);
     }
 
-
   };
 
 
@@ -135,7 +134,7 @@ const MuiTut = () => {
             label='Title'
             name='title'
             variant='outlined'
-            color='secondary'
+            // color='secondary'
             fullWidth
             required
             error={titleError}
