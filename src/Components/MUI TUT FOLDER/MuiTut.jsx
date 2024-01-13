@@ -168,7 +168,7 @@ const MuiTut = () => {
               className={classes.btn}
               variant='outlined' 
               type='submit' 
-              // color='secondary'
+              color='secondary'
               endIcon={<ArrowForwardIcon/>}>
               
                 Submit
