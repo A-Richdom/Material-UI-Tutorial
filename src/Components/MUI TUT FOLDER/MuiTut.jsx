@@ -16,6 +16,7 @@ import { Typography,
 import { makeStyles } from '@material-ui/core/styles';
 import AcUnitIcon from '@material-ui/icons/AcUnit';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import axios from 'axios'
 
 
 
@@ -70,29 +71,43 @@ const useStyles = makeStyles((theme) => ({
 
 const MuiTut = () => {
   const classes = useStyles();
-  const [title, setTitle] = useState('')
-  const [details, setDetails] = useState('')
-  const [titleError, setTitleError] = useState(false)
-  const [detailsError, setDetailsError] = useState(false)
+
+  const [muis, setMuis] = useState({})
   const [category, setCategory] = useState('todos')
 
-  // HANDLE SUBMIT
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    setTitleError(false)
-    setDetailsError(false)
-
-    if (title === '') {
-      setTitleError(true)
-      return false;
-    }
   
-    if (details === '') {
-      setDetailsError(true)
-    }
+  //HANDLE TEXT ONCHANGE
+  function handleChange(e) {
+    console.log(e.target.value)
 
-    if (title && details && category) {
-      console.log(title, details, category);
+    let key = e.target.name,
+        val = e.target.value
+
+    setMuis({...muis, [key]: val});
+  };
+  
+  //HANDLE RADIO ONCHANGE
+  function handleRadioChange(e) {
+    console.log(e.target.value);
+
+    setCategory(e.target.value)
+  };
+
+
+  // HANDLE SUBMIT
+  async function handleSubmit (e) {
+    e.preventDefault()
+
+    const dataToSend = {...muis, category}
+    console.log(dataToSend);
+
+    try {
+      const response = await axios.post('http://localhost:6000/mui/create', dataToSend)
+        
+      console.log({response: response.data});
+    } 
+    catch (error) {
+      console.log({error: error.message, response: error.response});
     }
 
   };
@@ -113,7 +128,7 @@ const MuiTut = () => {
          <br /> <br />
 
 
-        <AcUnitIcon fontSize='large' color='secondary'/>  
+        <AcUnitIcon fontSize  ='large' color='secondary'/>  
         <AcUnitIcon fontSize='medium'/>  
         <AcUnitIcon fontSize='small'/>  
         <AcUnitIcon/>  
@@ -128,21 +143,22 @@ const MuiTut = () => {
 
         <form className={classes.form} onSubmit={handleSubmit} > <br />
           <TextField
-            onChange={(e) => 
-              {console.log('Title changed', e.target.value),
-              setTitle(e.target.value)}}
+            onChange={handleChange}
+            // onChange={(e) => 
+            //   {console.log('Title changed', e.target.value),
+            //   setTitle(e.target.value)}}
             label='Title'
             name='title'
             variant='outlined'
             color='secondary'
             fullWidth
             required
-            error={titleError}
             
           />
 
           <TextField className={classes.field}
-            onChange={(e) => setDetails(e.target.value)}
+            onChange={handleChange}
+            // onChange={(e) => {setDetails(e.target.value)}}
             label='Details'
             name='details'
             variant='outlined'
@@ -151,13 +167,18 @@ const MuiTut = () => {
             rows={4}
             fullWidth
             required
-            error={detailsError}
             
           />
 
           <FormControl>
             <FormLabel>Note Category</FormLabel>
-            <RadioGroup value={category} onChange={(e) => { setCategory(e.target.value)}} >
+            <RadioGroup 
+
+              name='category'
+              value={category} 
+              onChange={handleRadioChange}
+              // onChange={(e) => { setCategory(e.target.value)}} 
+            >
               <FormControlLabel value="money" control={<Radio/>} label="Money" />
               <FormControlLabel value="todos" control={<Radio/>} label="Todos" />
               <FormControlLabel value="reminder" control={<Radio/>} label="Reminder"/>
