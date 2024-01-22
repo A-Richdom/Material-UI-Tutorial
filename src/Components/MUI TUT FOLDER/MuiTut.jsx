@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useState } from 'react'
 import { Typography, 
           Button, 
@@ -16,7 +17,7 @@ import { Typography,
 import { makeStyles } from '@material-ui/core/styles';
 import AcUnitIcon from '@material-ui/icons/AcUnit';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import axios from 'axios'
+
 
 
 
@@ -78,12 +79,12 @@ const MuiTut = () => {
   
   //HANDLE TEXT ONCHANGE
   function handleChange(e) {
-    console.log(e.target.value)
+    console.log(e.target.value);
 
     let key = e.target.name,
         val = e.target.value
 
-    setMuis({...muis, [key]: val});
+    setMuis({...muis, [key]: val });
   };
   
   //HANDLE RADIO ONCHANGE
@@ -95,7 +96,7 @@ const MuiTut = () => {
 
 
   // HANDLE SUBMIT
-  async function handleSubmit (e) {
+  async function handleSubmit(e) {
     e.preventDefault()
 
     const dataToSend = {...muis, category}
@@ -107,7 +108,7 @@ const MuiTut = () => {
       console.log({response: response.data});
     } 
     catch (error) {
-      console.log({error: error.message, response: error.response});
+      console.log({error: error.message});
     }
 
   };
@@ -150,7 +151,7 @@ const MuiTut = () => {
             label='Title'
             name='title'
             variant='outlined'
-            color='secondary'
+            // color='secondary'
             fullWidth
             required
             
