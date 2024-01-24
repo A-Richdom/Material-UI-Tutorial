@@ -103,7 +103,7 @@ const MuiTut = () => {
     console.log(dataToSend);
 
     try {
-      const response = await axios.post('http://localhost:6000/mui/create', dataToSend)
+      const response = await axios.post('http://localhost:5000/mui/create', dataToSend)
         
       console.log({response: response.data});
     } 
@@ -151,7 +151,7 @@ const MuiTut = () => {
             label='Title'
             name='title'
             variant='outlined'
-            color='secondary'
+            // color='secondary'
             fullWidth
             required
             
