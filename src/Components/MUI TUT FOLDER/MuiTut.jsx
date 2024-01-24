@@ -20,7 +20,6 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 
 
-
 const useStyles = makeStyles((theme) => ({
   LoremTypo: {
     backgroundColor: theme.palette.secondary.light,
@@ -151,7 +150,7 @@ const MuiTut = () => {
             label='Title'
             name='title'
             variant='outlined'
-            // color='secondary'
+            color='secondary'
             fullWidth
             required
             
@@ -197,6 +196,8 @@ const MuiTut = () => {
 
             </Button>
         </form>
+
+    
     </Container>
   )
 };
