@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Container, makeStyles } from '@material-ui/core'
+import { Container, Grid, Paper, makeStyles } from '@material-ui/core'
+import NoteCard from './MuiCard';
 
 const useStyles = makeStyles((theme) => ({
     gettingMui: {
@@ -24,17 +25,21 @@ const GetMuis = () => {
     
 
     async function getData() {
-     
-           const res = await axios.get('http://localhost:5000/mui/getAll')
 
-           setMuis(res.data)
+        try {
+            const res = await axios.get('http://localhost:5000/mui/getAll')
 
+            setMuis(res.data)
+        } 
+        catch (error) {
+            console.log({error: error.message});
+        }   
     };
     console.log(muis);
 
   return (
     <main>
-        <Container>
+        {/* <Container>
             {muis.map((mui, i) => (
                 <section className={classes.gettingMui} key={i}>
                     <h1>{mui.title}</h1>
@@ -42,7 +47,15 @@ const GetMuis = () => {
                     <p>{mui._id}</p>
                 </section>
             ))}
-        </Container>
+        </Container> */}
+        <Grid container>
+            {muis.map((mui, i) => (
+                <Grid item className={classes.gettingMui} key={i} xs={12} md={6} lg={3}>
+                    {/* <Paper>{mui.title}</Paper> */}
+                    <NoteCard mui={mui}/>
+                </Grid>
+            ))}
+        </Grid>
         
     </main>
   )

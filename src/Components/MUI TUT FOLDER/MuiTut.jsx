@@ -17,6 +17,7 @@ import { Typography,
 import { makeStyles } from '@material-ui/core/styles';
 import AcUnitIcon from '@material-ui/icons/AcUnit';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -74,6 +75,7 @@ const MuiTut = () => {
 
   const [muis, setMuis] = useState({})
   const [category, setCategory] = useState('todos')
+  const navigate = useNavigate()
 
   
   //HANDLE TEXT ONCHANGE
@@ -105,6 +107,7 @@ const MuiTut = () => {
       const response = await axios.post('http://localhost:5000/mui/create', dataToSend)
         
       console.log({response: response.data});
+      navigate('/getAll')
     } 
     catch (error) {
       console.log({error: error.message});
