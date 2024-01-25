@@ -8,11 +8,12 @@ import DeleteOutlinedIcon from  '@mui/icons-material/DeleteOutlined';
 
 const MuiCard = ({mui, handleDelete}) => {
   return (
-    <div>
+    <div> 
+       
         <Card>
             <CardHeader 
                 action={
-                <IconButton onClick={handleDelete}>
+                <IconButton onClick={() => handleDelete(mui._id)}>
                   <DeleteOutlinedIcon />
                 </IconButton>
                 }
@@ -26,6 +27,7 @@ const MuiCard = ({mui, handleDelete}) => {
             />
             <CardContent>
               <Typography variant='body2'>{mui.details}</Typography>
+              <small>{mui._id}</small>
             </CardContent>
             
         </Card>

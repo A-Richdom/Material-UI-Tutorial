@@ -1,7 +1,9 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Container, Grid, Paper, makeStyles } from '@material-ui/core'
+import { Container, Grid,  makeStyles } from '@material-ui/core'
 import MuiCard from './MuiCard';
+
+
 
 const useStyles = makeStyles((theme) => ({
     gettingMui: {
@@ -21,34 +23,37 @@ const GetMuis = () => {
 
     const [muis, setMuis] = useState([])
     useEffect(() => {
-     getData()
+     getData(),
+     handleDelete()
     }, [])
     
-//FETCHING MUI
+//FETCHING MUI/
     async function getData() {
 
         try {
-            const res = await axios.get('http://localhost:5000/mui/getAll')
-
-            setMuis(res.data)
-        } 
+            const res = await axios.get('http://localhost:5000/mui/getAll');
+            console.log('Response from API:', res.data);
+            setMuis(res.data);
+        }
         catch (error) {
-            console.log({error: error.message});
-        }   
+            console.log({ error: error.message });
+        }
     };
-    console.log(muis);
+   
 
-//DELETE MUI
+//DELETE MUI//
     async function handleDelete(id) {
-
         try {
-            const res = await axios.delete(`http://localhost:5000/mui/delete${id}`)
+            const res = await axios.delete(`http://localhost:5000/mui/delete/${id}`)
 
-            setMuis(res.data)
+            const newMuis = muis.filter((mui) => mui._id !== id);
+            setMuis(newMuis);
+            
         } 
         catch (error) {
             console.log({error: error.message});
         }
+
     };
 
   return (
@@ -65,7 +70,7 @@ const GetMuis = () => {
         <Grid container>
             {muis.map((mui, i) => (
                 <Grid item className={classes.gettingMui} key={i} xs={12} md={6} lg={3}>
-                    {/* <Paper>{mui.title}</Paper> */}
+                   
                     <MuiCard mui={mui} handleDelete={handleDelete}/>
                 </Grid>
             ))}
