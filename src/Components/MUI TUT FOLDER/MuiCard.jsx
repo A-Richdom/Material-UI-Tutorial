@@ -2,21 +2,31 @@ import React from 'react'
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
-import { IconButton} from '@material-ui/core';
+import { IconButton, Typography} from '@material-ui/core';
 import DeleteOutlinedIcon from  '@mui/icons-material/DeleteOutlined';
-const MuiCard = ({mui}) => {
+
+
+const MuiCard = ({mui, handleDelete}) => {
   return (
     <div>
         <Card>
             <CardHeader 
                 action={
-                <IconButton>
+                <IconButton onClick={handleDelete}>
                   <DeleteOutlinedIcon />
                 </IconButton>
                 }
-                title={mui.title}
+    
+                title={
+                  <Typography variant='h5'>
+                    {mui.title}
+                  </Typography>
+                }
                 subheader={mui.category}
             />
+            <CardContent>
+              <Typography variant='body2'>{mui.details}</Typography>
+            </CardContent>
             
         </Card>
     </div>

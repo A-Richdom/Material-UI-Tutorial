@@ -1,14 +1,15 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Container, Grid, Paper, makeStyles } from '@material-ui/core'
-import NoteCard from './MuiCard';
+import MuiCard from './MuiCard';
 
 const useStyles = makeStyles((theme) => ({
     gettingMui: {
-        backgroundColor: theme.palette.secondary.light,
+        backgroundColor: theme.palette.secondary.main,
+        // color: theme.palette.secondary.dark,
         fontFamily: 'QuickSand',
         fontWeight: theme.typography.fontWeightBold,
-        padding: theme.spacing(2, 5),
+        padding: theme.spacing(5, 5),
         margin: theme.spacing(5, 6),
         borderRadius: '20px'
     }
@@ -23,7 +24,7 @@ const GetMuis = () => {
      getData()
     }, [])
     
-
+//FETCHING MUI
     async function getData() {
 
         try {
@@ -36,6 +37,19 @@ const GetMuis = () => {
         }   
     };
     console.log(muis);
+
+//DELETE MUI
+    async function handleDelete(id) {
+
+        try {
+            const res = await axios.delete(`http://localhost:5000/mui/delete${id}`)
+
+            setMuis(res.data)
+        } 
+        catch (error) {
+            console.log({error: error.message});
+        }
+    };
 
   return (
     <main>
@@ -52,7 +66,7 @@ const GetMuis = () => {
             {muis.map((mui, i) => (
                 <Grid item className={classes.gettingMui} key={i} xs={12} md={6} lg={3}>
                     {/* <Paper>{mui.title}</Paper> */}
-                    <NoteCard mui={mui}/>
+                    <MuiCard mui={mui} handleDelete={handleDelete}/>
                 </Grid>
             ))}
         </Grid>
