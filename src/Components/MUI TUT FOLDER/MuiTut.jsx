@@ -161,7 +161,6 @@ const MuiTut = () => {
 
           <TextField className={classes.field}
             onChange={handleChange}
-            // onChange={(e) => {setDetails(e.target.value)}}
             label='Details'
             name='details'
             variant='outlined'
