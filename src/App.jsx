@@ -6,15 +6,23 @@ import { createTheme, useTheme, ThemeProvider, colors } from '@material-ui/core'
 import { purple } from '@mui/material/colors';
 import { indigo, teal } from '@material-ui/core/colors';
 import GetMuis from './Components/MUI TUT FOLDER/GetMuis';
+import LayOut from './Components/MUI TUT FOLDER/LayOut';
 
 
 const router = createBrowserRouter([
 
   { path: 'todo', element: <ToDoApp />},
 
-  { path: 'mui', element: <MuiTut />},
+  { path: '/', element: <LayOut />,
 
-  { path: 'getAll', element: <GetMuis/>}
+    children: [
+      { path: 'mui', element: <MuiTut />},
+
+      { path: 'getAll', element: <GetMuis/>}
+    ]
+  
+  }
+
 ]);
 
 const theme = createTheme({
@@ -31,6 +39,9 @@ const theme = createTheme({
     fontWeightBold: '600',
     body2: {
       color: teal[500],
+    },
+    h5: {
+      color: teal[700]
     }
     
   }
