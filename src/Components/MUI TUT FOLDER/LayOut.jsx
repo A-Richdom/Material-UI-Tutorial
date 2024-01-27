@@ -3,6 +3,7 @@ import React from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import SubjectOutlinedIcon from '@mui/icons-material/SubjectOutlined';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import { format } from 'date-fns'
 
 
 
@@ -35,7 +36,10 @@ const useStyles = makeStyles((theme) => ({
     appbar: {
         width: `calc(100% - ${drawerWidth}px)`
     },
-    toolbar: theme.mixins.toolbar
+    toolbar: theme.mixins.toolbar,
+    date: {
+        flexGrow: 1
+    }
 }));
 
 const LayOut = () => {
@@ -61,7 +65,13 @@ const LayOut = () => {
         {/* App Bar */}
         <AppBar className={classes.appbar}>
             <Toolbar>
-                Welcome to Material Tutorial
+                <Typography className={classes.date}>
+                    {/* Welcome to MUI */}
+                    Today is the {format(new Date(), 'do MMMM Y')}
+                </Typography>
+                <Typography>
+                    RIDWAN
+                </Typography>
             </Toolbar>
         </AppBar>
         <Drawer
