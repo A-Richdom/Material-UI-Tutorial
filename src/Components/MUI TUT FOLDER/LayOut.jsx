@@ -1,4 +1,4 @@
-import { AppBar, Drawer, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography, makeStyles } from '@material-ui/core';
+import { AppBar, Avatar, Drawer, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography, makeStyles } from '@material-ui/core';
 import React from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import SubjectOutlinedIcon from '@mui/icons-material/SubjectOutlined';
@@ -39,6 +39,12 @@ const useStyles = makeStyles((theme) => ({
     toolbar: theme.mixins.toolbar,
     date: {
         flexGrow: 1
+    },
+    avatar: {
+        marginLeft: theme.spacing(2),
+        objectFit: 'cover',
+        border: '2px solid'
+        
     }
 }));
 
@@ -72,6 +78,7 @@ const LayOut = () => {
                 <Typography>
                     RIDWAN
                 </Typography>
+                <Avatar src='/LDW_5232.JPG' className={classes.avatar}/>
             </Toolbar>
         </AppBar>
         <Drawer
