@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     drawerPaper: {
         width: drawerWidth,
         boxSizing: 'border-box',
-        backgroundColor: 'Pink',
+        // backgroundColor: 'Pink',
     },
     active: {
         backgroundColor: 'pink  '
