@@ -2,15 +2,27 @@ import React from 'react'
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
-import { IconButton, Typography} from '@material-ui/core';
+import { IconButton, Typography, makeStyles} from '@material-ui/core';
 import DeleteOutlinedIcon from  '@mui/icons-material/DeleteOutlined';
 
 
+const useStyles = makeStyles({
+  test: {
+    border: (mui) => {
+      if (mui.category == 'money') {
+        return '6px solid blue'
+      }
+      return '6px solid black'
+    }
+  }
+});
+
 const MuiCard = ({mui, handleDelete}) => {
+const classes = useStyles(mui)
   return (
     <div> 
        
-        <Card>
+        <Card className={classes.test}>
             <CardHeader 
                 action={
                 <IconButton onClick={() => handleDelete(mui._id)}>
