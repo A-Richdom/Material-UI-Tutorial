@@ -1,4 +1,4 @@
-import { Drawer, List, ListItem, ListItemIcon, ListItemText, Typography, makeStyles } from '@material-ui/core';
+import { AppBar, Drawer, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography, makeStyles } from '@material-ui/core';
 import React from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import SubjectOutlinedIcon from '@mui/icons-material/SubjectOutlined';
@@ -31,7 +31,11 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         padding: theme.spacing(2, 2.5)
-    }
+    },
+    appbar: {
+        width: `calc(100% - ${drawerWidth}px)`
+    },
+    toolbar: theme.mixins.toolbar
 }));
 
 const LayOut = () => {
@@ -54,6 +58,12 @@ const LayOut = () => {
 
   return (
     <div className={classes.root}>
+        {/* App Bar */}
+        <AppBar className={classes.appbar}>
+            <Toolbar>
+                Welcome to Material Tutorial
+            </Toolbar>
+        </AppBar>
         <Drawer
             className={classes.drawer}
             variant='permanent'
@@ -82,6 +92,7 @@ const LayOut = () => {
         </Drawer>
 
         <div className={classes.outletPage}>
+            <div className={classes.toolbar}></div>
             <Outlet />
         </div>
         
