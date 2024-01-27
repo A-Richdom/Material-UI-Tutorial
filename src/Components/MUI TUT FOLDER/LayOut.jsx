@@ -28,6 +28,9 @@ const useStyles = makeStyles((theme) => ({
     },
     active: {
         backgroundColor: 'pink  '
+    },
+    title: {
+        padding: theme.spacing(2, 2.5)
     }
 }));
 
@@ -57,7 +60,7 @@ const LayOut = () => {
             anchor='left'
             classes={{ paper: classes.drawerPaper }}
         >
-            <div><Typography variant='h5'>
+            <div><Typography variant='h5' className={classes.title}>
                     MUI TUT NOTE
                 </Typography>
             </div>
