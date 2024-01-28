@@ -73,7 +73,7 @@ const LayOut = () => {
             <Toolbar>
                 <Typography className={classes.date}>
                     {/* Welcome to MUI */}
-                    Today is the {format(new Date(), 'do MMMM Y')}
+                    Today is the {format(new Date(), 'do MMMM y')}
                 </Typography>
                 <Typography>
                     RIDWAN
