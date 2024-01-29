@@ -17,11 +17,18 @@ const useStyles = makeStyles(() => ({
     }
   },
   avatar: {
-    backgroundColor: (mui) => {
-    
+   backgroundColor: (mui) => {
+    if (mui.category === 'money') {
+      return blue[700]
     }
-  }
+    if (mui.category === 'todos') {
+      return red[700]
+    }
+    return green[700]
+   }
+  }  
 }));
+
 
 const MuiCard = ({mui, handleDelete}) => {
 const classes = useStyles(mui)
