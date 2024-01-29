@@ -57,7 +57,7 @@ const theme = createTheme({
       
     }
   }
-})
+});
 
 const ToDoApp = () => {
   const theme = useTheme()
