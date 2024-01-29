@@ -74,6 +74,6 @@ const classes = useStyles(mui)
         </Card>
     </div>
   )
-}
+};
 
 export default MuiCard
