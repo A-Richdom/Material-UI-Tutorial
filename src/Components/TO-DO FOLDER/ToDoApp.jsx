@@ -112,6 +112,7 @@ const ToDoApp = () => {
       </div>
     </ThemeProvider>
   )
-}
+
+};
 
 export default ToDoApp
