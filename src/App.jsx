@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ToDoApp from './Components/TO-DO FOLDER/ToDoApp'
+import ToDoApp from './Components/ToDoApp'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import MuiTut from './Components/MUI TUT FOLDER/MuiTut';
 import { createTheme, useTheme, ThemeProvider, colors } from '@material-ui/core';
@@ -7,11 +7,15 @@ import { purple } from '@mui/material/colors';
 import { indigo, teal } from '@material-ui/core/colors';
 import GetMuis from './Components/MUI TUT FOLDER/GetMuis';
 import LayOut from './Components/MUI TUT FOLDER/LayOut';
+import NoTask from './Components/TO-DO PROJECT/NoTask';
+
 
 
 const router = createBrowserRouter([
 
   { path: 'todo', element: <ToDoApp />},
+
+  { path: 'notask', element: <NoTask />},
 
   { path: '/', element: <LayOut />,
 

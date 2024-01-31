@@ -78,7 +78,7 @@ const LayOut = () => {
                 <Typography>
                     RIDWAN
                 </Typography>
-                <Avatar src='/LDW_5232.JPG' className={classes.avatar}/>
+                <Avatar src='/LDW_5232.JPG' className={classes.avatar} />
             </Toolbar>
         </AppBar>
         <Drawer
