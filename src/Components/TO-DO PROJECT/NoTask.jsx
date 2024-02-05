@@ -34,6 +34,6 @@ const NoTask = () => {
         </Card>
     </Container>
   )
-};
+}
 
 export default NoTask
