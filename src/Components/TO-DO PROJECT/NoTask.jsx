@@ -1,4 +1,4 @@
-import { Card, Container, makeStyles } from '@material-ui/core'
+import { Card, Container, Input, makeStyles } from '@material-ui/core'
 import React from 'react'
 
 
@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     minHeight: '100vh'
   },
   card: {
-    backgroundColor: 'black',
+    backgroundColor: '#1b1a17',
     width: '350px',
     height: '80vh',
     display: 'flex',
@@ -22,9 +22,14 @@ const useStyles = makeStyles((theme) => ({
 
 const NoTask = () => {
   const classes = useStyles()
+  
   return (
     <Container className={classes.cardContainer}>
         <Card className={classes.card}>
+          <form className={classes.form}>
+            <Input />
+
+          </form>
 
         </Card>
     </Container>

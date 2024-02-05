@@ -53,8 +53,7 @@ const theme = createTheme({
     fontWeightBold:"700",
     fontWeightLight:"100",
     h1:{
-      fontSize:50,
-      
+      fontSize:50, 
     }
   }
 });
