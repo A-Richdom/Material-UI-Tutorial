@@ -1,4 +1,4 @@
-import { Card, Container, Input, makeStyles } from '@material-ui/core'
+import { Card, CardContent, Container, Input, TextField, makeStyles } from '@material-ui/core'
 import React from 'react'
 
 
@@ -17,6 +17,13 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     
   },
+  field: {
+    // display: 'block',
+    width: '270px',
+    height: '10px',
+    
+    
+  }
   
 }))
 
@@ -26,11 +33,20 @@ const NoTask = () => {
   return (
     <Container className={classes.cardContainer}>
         <Card className={classes.card}>
-          <form className={classes.form}>
-            <Input />
+          <CardContent>
 
-          </form>
+            <form className={classes.form}>
+              <TextField 
+                className={classes.field}
+                label='Title'
+                name='title'
+                variant='outlined'
+                required
+               
+              />
 
+            </form>
+          </CardContent>
         </Card>
     </Container>
   )
