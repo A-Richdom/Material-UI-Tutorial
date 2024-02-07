@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 
-const NoTask = () => {
+const TodoProject = () => {
   const classes = useStyles()
   
   return (
@@ -105,15 +105,14 @@ const NoTask = () => {
                 </Button>
 
               </div>
-             
-              
-              
-
             </form>
+
           </CardContent>
+
+          
         </Card>
     </Container>
   )
 }
 
-export default NoTask
+export default TodoProject
