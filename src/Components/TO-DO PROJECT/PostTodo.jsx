@@ -1,6 +1,7 @@
-import { Button, Card, CardContent, Container, TextField, makeStyles } from '@material-ui/core'
-import React from 'react'
+import { Button, Card, CardContent, Container, TextField, Typography, makeStyles } from '@material-ui/core'
+import React, { useState } from 'react'
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   cardContainer: {
@@ -70,34 +71,92 @@ const useStyles = makeStyles((theme) => ({
     color: 'white',
     marginBottom: '16px',
   },
+notask: { 
+    display: 'inline-block',
+    width: '110px',
+    height: '40px',
+    fontFamily: theme.typography.fontFamily,
+    fontSize: '25px',
+    border: '2px solid #ff8303',
+    borderRight: 'none',
+    borderLeft: 'none',
+    color: 'whitesmoke',
+    textAlign: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: '20px 100px'
+  },  
+  notaskText: {
+    display: 'inline-block',
+    width: '100%', 
+    textAlign: 'center',
+    overflow: 'hidden',
+    margin: '3px',
+    // textOverflow: 'ellipsis',
+    // whiteSpace: 'nowrap',
+    justifyContent: 'center'
+  },
   
 }));
 
-const TodoProject = () => {
+const PostTodo = () => {
   const classes = useStyles()
+  const [todo, setTodo] = useState({})
+
+
+  //HANDLE CHANGE
+  function handleChange(e) {
+    console.log(e.target.value);
+
+    let key = e.target.name
+    let val = e.target.value
+
+    setTodo({...todo, [key]: val })
+  };
+  
+  //HANDLE SUBMIT
+  async function handleSubmit(e) {
+    e.preventDefault()
+    console.log(todo);
+
+    try {
+      const response = await axios.post('http://localhost:5000/todo/create', todo)
+      console.log({response: response.data});
+    } 
+    catch (error) {
+      console.log({error: error.message});
+    }
+  };
   
   return (
     <Container className={classes.cardContainer}>
         <Card className={classes.card}>
           <CardContent className={classes.cardContent}>
 
-            <form>
-              <div className={classes.form}>
+            <form onSubmit={handleSubmit}>
+              <div className={classes.form} >
                 <div className={classes.fields}>
                   <TextField 
                     className={classes.field}
+                    onChange={handleChange}
+                    // onChange={(e) => 
+                    //   {console.log('TITLE LOGGEED', e.target.value),
+                    //   setTodo(e.target.value)}}
                     label='Title...'
                     name='title'
                     variant='outlined'              
                   />
                   <TextField 
                     className={classes.field}
+                    onChange={handleChange}
                     label='About...'
                     name='about'
                     variant='outlined'
                   />
                 </div>
+                
                 <Button
+                  type='submit'
                   className={classes.addBtn}
                   variant='outlined'
                 >
@@ -107,6 +166,10 @@ const TodoProject = () => {
               </div>
             </form>
 
+            <div className={classes.notask}>
+              <p className={classes.notaskText}>No tasks</p>
+            </div>
+
           </CardContent>
 
           
@@ -115,4 +178,4 @@ const TodoProject = () => {
   )
 }
 
-export default TodoProject
+export default PostTodo

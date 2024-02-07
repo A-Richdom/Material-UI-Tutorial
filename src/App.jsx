@@ -7,7 +7,7 @@ import { purple } from '@mui/material/colors';
 import { indigo, teal } from '@material-ui/core/colors';
 import GetMuis from './Components/MUI TUT FOLDER/GetMuis';
 import LayOut from './Components/MUI TUT FOLDER/LayOut';
-import TodoProject from './Components/TO-DO PROJECT/TodoProject';
+import PostTodo from './Components/TO-DO PROJECT/PostTodo';
 
 
 
@@ -15,7 +15,7 @@ const router = createBrowserRouter([
 
   { path: 'todo', element: <ToDoApp />},
 
-  { path: 'todoProject', element: <TodoProject />},
+  { path: 'postTodo', element: <PostTodo />},
 
   { path: '/', element: <LayOut />,
 
