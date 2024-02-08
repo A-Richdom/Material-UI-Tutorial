@@ -2,6 +2,8 @@ import { Button, Card, CardContent, Container, TextField, Typography, makeStyles
 import React, { useState } from 'react'
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import axios from 'axios';
+import GetTodo from './GetTodo';
+
 
 const useStyles = makeStyles((theme) => ({
   cardContainer: {
@@ -16,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
     height: '80vh',
     display: 'flex',
     justifyContent: 'center',
-    
   },
   cardContent: {
     padding:'30px 60px',
@@ -113,7 +114,7 @@ const PostTodo = () => {
 
     setTodos({...todos, [key]: val })
   };
-  
+
   //HANDLE SUBMIT
   async function handleSubmit(e) {
     e.preventDefault()
@@ -122,6 +123,7 @@ const PostTodo = () => {
     try {
       const response = await axios.post('http://localhost:5000/todo/create', todos)
       console.log({response: response.data});
+      getTodo()
     } 
     catch (error) {
       console.log({error: error.message});
@@ -169,6 +171,8 @@ const PostTodo = () => {
             <div className={classes.notask}>
               <p className={classes.notaskText}>No tasks</p>
             </div>
+
+            <GetTodo/>
 
           </CardContent>
 
