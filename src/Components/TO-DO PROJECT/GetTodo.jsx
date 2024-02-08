@@ -27,6 +27,6 @@ useEffect(() => {
       
     </div>
   )
-}
+};
 
 export default GetTodo
