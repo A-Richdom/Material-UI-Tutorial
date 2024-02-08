@@ -101,7 +101,7 @@ notask: {
 
 const PostTodo = () => {
   const classes = useStyles()
-  const [todo, setTodo] = useState({})
+  const [todos, setTodos] = useState({})
 
 
   //HANDLE CHANGE
@@ -111,16 +111,16 @@ const PostTodo = () => {
     let key = e.target.name
     let val = e.target.value
 
-    setTodo({...todo, [key]: val })
+    setTodos({...todos, [key]: val })
   };
   
   //HANDLE SUBMIT
   async function handleSubmit(e) {
     e.preventDefault()
-    console.log(todo);
+    console.log(todos);
 
     try {
-      const response = await axios.post('http://localhost:5000/todo/create', todo)
+      const response = await axios.post('http://localhost:5000/todo/create', todos)
       console.log({response: response.data});
     } 
     catch (error) {
@@ -141,7 +141,7 @@ const PostTodo = () => {
                     onChange={handleChange}
                     // onChange={(e) => 
                     //   {console.log('TITLE LOGGEED', e.target.value),
-                    //   setTodo(e.target.value)}}
+                    //   setTodos(e.target.value)}}
                     label='Title...'
                     name='title'
                     variant='outlined'              
