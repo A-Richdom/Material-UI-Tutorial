@@ -16,13 +16,17 @@ const useStyles = makeStyles((theme) => ({
     width: '320px',
     minHeight: '60px',
     display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     border: '2px solid #ff8303',
     borderRadius: '10px',
     padding: '0 0 0 20px',
     marginBottom: '10px',
     // overflowY: 'auto',
+  },
+  textContent: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
   typo: {
     fontSize: '1.5rem',
@@ -31,6 +35,17 @@ const useStyles = makeStyles((theme) => ({
   },
   lastTypo: {
     color: 'whitesmoke'
+  },
+  iconWrapper: {
+    display: 'flex',
+    color: '#ff8303',
+    border: '2px solid #ff8303',
+    borderRadius: '5px',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  iconContent: {
+    fontSize: '8px',
   }
 }));
 
@@ -61,16 +76,18 @@ useEffect(() => {
         
           {todos.map((todo, i) => (
             <section key={i} className={classes.sectionContent}>
-              <div>
+              <div className={classes.textContent}>
                 <Typography  className={classes.typo}>{todo.title}</Typography>
                 <Typography variant='body1' className={classes.lastTypo}>{todo.about}</Typography>
               </div>
 
               <Button
-                className={classes.contentBtn}
+                className={classes.btnContent}
                 variant='outlined'
               >
-                <ClearIcon/>
+                <div className={classes.iconWrapper}>
+                  <ClearIcon className={classes.iconContent}/>
+                </div>
               </Button>
               
             </section> 
