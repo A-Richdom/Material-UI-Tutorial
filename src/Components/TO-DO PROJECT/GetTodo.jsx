@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, Typography, makeStyles, Button } from '@material-ui/core'
+import { Card, CardContent, CardHeader, Typography, makeStyles, Button, ButtonGroup } from '@material-ui/core'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import ClearIcon from '@mui/icons-material/Clear';
@@ -45,7 +45,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   iconContent: {
-    fontSize: '8px',
+    fontSize: '16px',
+    padding: '8px'
+
   }
 }));
 
@@ -92,6 +94,12 @@ useEffect(() => {
               
             </section> 
           ))}
+
+          <ButtonGroup>
+            <Button></Button>
+            <Button></Button>
+            <Button></Button>
+          </ButtonGroup>
         
       </div>
       
