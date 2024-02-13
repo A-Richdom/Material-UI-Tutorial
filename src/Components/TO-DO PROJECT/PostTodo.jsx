@@ -10,7 +10,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    minHeight: '100vh'
+    minHeight: '100vh',
+   
   },
   card: {
     backgroundColor: '#1b1a17',
@@ -18,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
     height: '80vh',
     display: 'flex',
     justifyContent: 'center',
+    borderRadius: '20px'
   },
   cardContent: {
     padding:'30px 60px',
@@ -85,16 +87,13 @@ notask: {
     textAlign: 'center',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: '20px 100px'
+    margin: '20px 115px'
   },  
   notaskText: {
     display: 'inline-block',
     width: '100%', 
     textAlign: 'center',
-    overflow: 'hidden',
     margin: '3px',
-    // textOverflow: 'ellipsis',
-    // whiteSpace: 'nowrap',
     justifyContent: 'center'
   },
   
@@ -168,9 +167,11 @@ const PostTodo = () => {
               </div>
             </form>
 
+          { todos.length === 0 &&
             <div className={classes.notask}>
               <p className={classes.notaskText}>No tasks</p>
             </div>
+          }
 
             <GetTodo/>
 
