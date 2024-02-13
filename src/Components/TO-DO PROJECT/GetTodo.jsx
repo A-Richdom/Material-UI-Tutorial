@@ -43,7 +43,7 @@ useEffect(() => {
     try {
       const response = await axios.get('http://localhost:5000/todo/getAll')
       setTodos(response.data.data)
-      console.log('Response from API:', response.data.data);
+      console.log('Response from API:', response.data);
     } 
     catch (error) {
       console.log({ error: error.message });
