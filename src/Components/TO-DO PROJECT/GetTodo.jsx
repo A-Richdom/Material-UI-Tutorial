@@ -142,6 +142,6 @@ useEffect(() => {
       </div>
       
     </main>
-  )};
+  )}
 
 export default GetTodo
