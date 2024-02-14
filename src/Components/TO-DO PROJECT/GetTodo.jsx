@@ -9,7 +9,7 @@ import EditIcon from '@mui/icons-material/Edit';
 
 const useStyles = makeStyles((theme) => ({
   divContainer: {
-    height: '150px',
+    height: '160px',
     overflow: 'auto',
     overflowX: 'hidden',
     marginTop: '30px',
@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '10px',
     padding: '0 0 0 20px',
     marginBottom: '10px',
-    // overflowY: 'auto',
   },
   textContent: {
     display: 'flex',
@@ -33,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
   },
   typo: {
     fontSize: '1.5rem',
-    // fontWeight: 'bold',
     color: 'whitesmoke'
   },
   lastTypo: {
@@ -50,25 +48,23 @@ const useStyles = makeStyles((theme) => ({
   },
   iconContent: {
     fontSize: '10px',  // The icon size is not reducing 
-    padding: '2px'
+    padding: '8px'
 
   },
-  btnsWrapper: {
+  iconsWrapper: {
     display: 'flex',  
-    gap: '10px',
+    gap: '6px',
     justifyContent: 'flex-end',
-    paddingBottom: '20px',
- 
-    '& button': {
-      color: 'whitesmoke',
-      padding: '15px',
-      border: '1px solid #ff8303',
-      borderRadius: '10px',
-      fontSize: '10px',
-    },
+    paddingTop: '6px',
+    paddingBottom: '15px',
   },
   buttonIconStyle: {
-    fontSize: '12px', // The icon size is not reducing
+    color: 'whitesmoke',
+    border: '1px solid #ff8303',
+    borderRadius: '4px',
+    padding: '8px',
+    cursor: 'pointer'
+
   }
 
   
@@ -77,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
 const GetTodo = () => {
   const classes = useStyles()
   const [todos, setTodos] = useState([]);
-  const [btnsVisible, setbtnsVisible] = useState(false)
+  const [iconsWrapperVisible, setIconsWrapperVisible] = useState(null);
 
 useEffect(() => {
   getTodo()
@@ -87,7 +83,8 @@ useEffect(() => {
 
     try {
       const response = await axios.get('http://localhost:5000/todo/getAll')
-      setTodos(response.data.data)
+      const todosData = response.data.data.map(todo => ({ ...todo, iconsWrapperVisible: false }));
+      setTodos(todosData);
       console.log('Response from API:', response.data);
     } 
     catch (error) {
@@ -95,8 +92,8 @@ useEffect(() => {
     }
   };
 
-  function handleBtnContent() {
-    setbtnsVisible(true)
+  function handleBtnContent(index) {
+    setIconsWrapperVisible((prevState) => (prevState === index ? null : index))
   };
 
   return (
@@ -119,23 +116,21 @@ useEffect(() => {
                   onClick={() => handleBtnContent(i)}
                 >
                   <div className={classes.iconWrapper}>
-                    <ClearIcon className={classes.iconContent}/>
+                    <ClearIcon style={{ fontSize: '15px' }} className={classes.iconContent}/>
                   </div>
                 </Button>
 
               </div>
 
               {/* DROP-DOWN BTNS */}
+              {iconsWrapperVisible !== null && iconsWrapperVisible === i && (
+                <div className={classes.iconsWrapper}>
+                <ShareRoundedIcon style={{ fontSize: '16px' }} className={classes.buttonIconStyle}/>
+                <InfoOutlinedIcon style={{ fontSize: '16px' }} className={classes.buttonIconStyle}/>
+                <EditIcon style={{ fontSize: '16px' }} className={classes.buttonIconStyle}/>
+              </div>
+              )}
             
-            { todo.btnsVisible &&
-            <div className={classes.btnsWrapper}>
-            <Button><ShareRoundedIcon className={classes.buttonIconStyle}/></Button>
-            <Button><InfoOutlinedIcon className={classes.buttonIconStyle}/></Button>
-            <Button><EditIcon className={classes.buttonIconStyle}/></Button>
-          </div>
-            }
-              
-              
             </section> 
           ))}
         
