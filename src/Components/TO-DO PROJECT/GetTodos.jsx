@@ -1,10 +1,11 @@
-import { Card, CardContent, CardHeader, Typography, makeStyles, Button, ButtonGroup } from '@material-ui/core'
-import axios from 'axios'
+import { Typography, makeStyles, Button } from '@material-ui/core'
+import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import ClearIcon from '@mui/icons-material/Clear';
 import ShareRoundedIcon from '@mui/icons-material/ShareRounded';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import EditIcon from '@mui/icons-material/Edit';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -35,7 +36,10 @@ const useStyles = makeStyles((theme) => ({
     color: 'whitesmoke'
   },
   lastTypo: {
-    color: 'whitesmoke'
+    color: 'whitesmoke',
+    // overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
   },
   iconWrapper: {
     display: 'flex',
@@ -125,10 +129,27 @@ useEffect(() => {
               {/* DROP-DOWN BTNS */}
               {iconsWrapperVisible !== null && iconsWrapperVisible === i && (
                 <div className={classes.iconsWrapper}>
-                <ShareRoundedIcon style={{ fontSize: '16px' }} className={classes.buttonIconStyle}/>
-                <InfoOutlinedIcon style={{ fontSize: '16px' }} className={classes.buttonIconStyle}/>
-                <EditIcon style={{ fontSize: '16px' }} className={classes.buttonIconStyle}/>
-              </div>
+                  <ShareRoundedIcon 
+                    style={{ fontSize: '16px' }} 
+                    className={classes.buttonIconStyle}
+                    onClick={() =>{console.log('clicked')}}
+                  />
+                  <InfoOutlinedIcon 
+                    style={{ fontSize: '16px' }} 
+                    className={classes.buttonIconStyle}
+                    onClick={() =>  handleInfo}
+                  />
+                  <DeleteForeverIcon 
+                    style={{ fontSize: '16px' }} 
+                    className={classes.buttonIconStyle}
+                    onClick={() => handleDelete}
+                  />
+                  <EditIcon  
+                    style={{ fontSize: '16px' }} 
+                    className={classes.buttonIconStyle}
+                    onClick={() => handleEdit}
+                  />
+                </div>
               )}
             
             </section> 
@@ -138,6 +159,6 @@ useEffect(() => {
       
     </main>
   )
-}
+};
 
 export default GetTodo

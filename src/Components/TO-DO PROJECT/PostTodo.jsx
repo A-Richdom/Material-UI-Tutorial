@@ -2,7 +2,7 @@ import { Button, Card, CardContent, Container, TextField, Typography, makeStyles
 import React, { useState } from 'react'
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import axios from 'axios';
-import GetTodo from './GetTodo';
+import GetTodos from './GetTodos';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -173,7 +173,7 @@ const PostTodo = () => {
             </div>
           }
 
-            <GetTodo/>
+            <GetTodos/>
 
           </CardContent>
 
