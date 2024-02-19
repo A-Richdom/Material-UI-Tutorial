@@ -167,6 +167,7 @@ const PostTodo = () => {
               </div>
             </form>
 
+          {/* NO-TASK CONTAINER */}
           { todos.length === 0 &&
             <div className={classes.notask}>
               <p className={classes.notaskText}>No tasks</p>

@@ -36,10 +36,15 @@ const useStyles = makeStyles((theme) => ({
     color: 'whitesmoke'
   },
   lastTypo: {
+    display: 'flex',
+    flexDirection: 'column',
+    flexWrap: 'wrap',
     color: 'whitesmoke',
-    // overflow: 'hidden',
+    overflow: 'hidden',
     textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
+    paddingRight: '0px 30px 0px 0px',
+    // whiteSpace: 'nowrap',
+    // textAlign: 'center',
   },
   iconWrapper: {
     display: 'flex',
