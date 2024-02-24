@@ -164,6 +164,6 @@ useEffect(() => {
       
     </main>
   )
-}
+};
 
 export default GetTodo
