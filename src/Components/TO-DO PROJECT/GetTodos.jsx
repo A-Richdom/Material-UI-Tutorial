@@ -75,8 +75,6 @@ const useStyles = makeStyles((theme) => ({
     cursor: 'pointer'
 
   }
-
-  
 }));
 
 const GetTodo = () => {
@@ -104,6 +102,18 @@ useEffect(() => {
   function handleBtnContent(index) {
     setIconsWrapperVisible((prevState) => (prevState === index ? null : index))
   };
+
+  const handleDelete = async() => {
+    try {
+      const {data} = await axios.delete(`https://localhost:5000/delete/${id}`)
+
+      console.log(data);
+    } 
+    catch (error) {
+      console.log({ error: error.message });
+    }
+  };
+
 
   return (
     <main>
@@ -147,7 +157,7 @@ useEffect(() => {
                   <DeleteForeverIcon 
                     style={{ fontSize: '16px' }} 
                     className={classes.buttonIconStyle}
-                    onClick={() => handleDelete}
+                    onClick={() => handleDelete()}
                   />
                   <EditIcon  
                     style={{ fontSize: '16px' }} 
@@ -164,6 +174,6 @@ useEffect(() => {
       
     </main>
   )
-}
+};
 
 export default GetTodo
