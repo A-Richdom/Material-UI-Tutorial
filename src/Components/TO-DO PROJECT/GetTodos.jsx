@@ -86,6 +86,7 @@ useEffect(() => {
   getTodo()
 }, [])
 
+  //FETCHING FUNCTION
   async function getTodo() {
 
     try {
@@ -103,9 +104,13 @@ useEffect(() => {
     setIconsWrapperVisible((prevState) => (prevState === index ? null : index))
   };
 
-  const handleDelete = async() => {
+
+  //DELETE FUNCTION
+  const handleDelete = async (id) => {
+
+    // console.log('Deleting todo with ID:', id);
     try {
-      const {data} = await axios.delete(`https://localhost:5000/delete/${id}`)
+      const {data} = await axios.delete(`http://localhost:5000/todo/delete/${id}`)
 
       console.log(data);
     } 
@@ -157,7 +162,7 @@ useEffect(() => {
                   <DeleteForeverIcon 
                     style={{ fontSize: '16px' }} 
                     className={classes.buttonIconStyle}
-                    onClick={() => handleDelete()}
+                    onClick={() => handleDelete(todo.id)}
                   />
                   <EditIcon  
                     style={{ fontSize: '16px' }} 
@@ -174,6 +179,6 @@ useEffect(() => {
       
     </main>
   )
-};
+}
 
 export default GetTodo
