@@ -6,6 +6,7 @@ import ShareRoundedIcon from '@mui/icons-material/ShareRounded';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { useParams } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -79,12 +80,15 @@ const useStyles = makeStyles((theme) => ({
 
 const GetTodo = () => {
   const classes = useStyles()
+  const {id} = useParams()
+
+  console.log(id);
   const [todos, setTodos] = useState([]);
   const [iconsWrapperVisible, setIconsWrapperVisible] = useState(null);
 
-useEffect(() => {
-  getTodo()
-}, [])
+  useEffect(() => {
+    getTodo()
+  }, [id])
 
   //FETCHING FUNCTION
   async function getTodo() {
@@ -108,7 +112,8 @@ useEffect(() => {
   //DELETE FUNCTION
   const handleDelete = async (id) => {
 
-    // console.log('Deleting todo with ID:', id);
+    console.log('Deleting todo with ID:', id);
+
     try {
       const {data} = await axios.delete(`http://localhost:5000/todo/delete/${id}`)
 
@@ -179,6 +184,6 @@ useEffect(() => {
       
     </main>
   )
-}
+};
 
 export default GetTodo
