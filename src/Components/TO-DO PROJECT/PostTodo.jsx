@@ -5,6 +5,8 @@ import axios from 'axios';
 import GetTodos from './GetTodos';
 
 
+
+
 const useStyles = makeStyles((theme) => ({
   cardContainer: {
     display: 'flex',
@@ -102,6 +104,7 @@ notask: {
 const PostTodo = () => {
   const classes = useStyles()
   const [todos, setTodos] = useState({})
+  // const { details, setDetails, error, setError, loading } = useTodo();
 
 
   //HANDLE CHANGE

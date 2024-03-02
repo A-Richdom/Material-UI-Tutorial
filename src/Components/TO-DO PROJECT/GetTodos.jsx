@@ -7,6 +7,7 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useParams } from 'react-router-dom';
+import { todoApi } from './HOOKS/todoApi.js'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -81,28 +82,26 @@ const useStyles = makeStyles((theme) => ({
 const GetTodo = () => {
   const classes = useStyles()
   const {id} = useParams()
-
-  console.log(id);
   const [todos, setTodos] = useState([]);
   const [iconsWrapperVisible, setIconsWrapperVisible] = useState(null);
 
   useEffect(() => {
-    getTodo()
+    todoApi(setTodos)
   }, [id])
 
-  //FETCHING FUNCTION
-  async function getTodo() {
+  // //FETCHING FUNCTION
+  // async function getTodo() {
 
-    try {
-      const response = await axios.get('http://localhost:5000/todo/getAll')
-      const todosData = response.data.data.map(todo => ({ ...todo, iconsWrapperVisible: false }));
-      setTodos(todosData);
-      console.log('Response from API:', response.data);
-    } 
-    catch (error) {
-      console.log({ error: error.message });
-    }
-  };
+  //   try {
+  //     const response = await axios.get('http://localhost:5000/todo/getAll')
+  //     const todosData = response.data.data.map(todo => ({ ...todo, iconsWrapperVisible: false }));
+  //     setTodos(todosData);
+  //     console.log('Response from API:', response.data);
+  //   } 
+  //   catch (error) {
+  //     console.log({ error: error.message });
+  //   }
+  // };
 
   function handleBtnContent(index) {
     setIconsWrapperVisible((prevState) => (prevState === index ? null : index))
@@ -116,6 +115,7 @@ const GetTodo = () => {
 
     try {
       const {data} = await axios.delete(`http://localhost:5000/todo/delete/${id}`)
+      console.log(id);
 
       console.log(data);
     } 
@@ -131,7 +131,7 @@ const GetTodo = () => {
       <div className={classes.divContainer}>
         
           {todos.map((todo, i) => (
-            <section key={i} >
+            <section key={todo._id} >
 
               <div className={classes.sectionContent}>
                 <div className={classes.textContent}>
@@ -148,8 +148,8 @@ const GetTodo = () => {
                     <ClearIcon style={{ fontSize: '15px' }} className={classes.iconContent}/>
                   </div>
                 </Button>
-
               </div>
+
 
               {/* DROP-DOWN BTNS */}
               {iconsWrapperVisible !== null && iconsWrapperVisible === i && (
@@ -167,7 +167,7 @@ const GetTodo = () => {
                   <DeleteForeverIcon 
                     style={{ fontSize: '16px' }} 
                     className={classes.buttonIconStyle}
-                    onClick={() => handleDelete(todo.id)}
+                    onClick={() => handleDelete(todo._id)}
                   />
                   <EditIcon  
                     style={{ fontSize: '16px' }} 
@@ -184,6 +184,6 @@ const GetTodo = () => {
       
     </main>
   )
-};
+}
 
 export default GetTodo
