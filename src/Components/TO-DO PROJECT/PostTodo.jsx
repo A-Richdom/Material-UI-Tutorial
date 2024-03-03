@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import axios from 'axios';
 import GetTodos from './GetTodos';
-
+import { todoApi } from './/HOOKS/todoApi';
 
 
 
@@ -104,31 +104,40 @@ notask: {
 const PostTodo = () => {
   const classes = useStyles()
   const [todos, setTodos] = useState({})
-  // const { details, setDetails, error, setError, loading } = useTodo();
+   const { initialDetails, dataVal, setDataVal, loading, setLoading, fetchTodo } = todoApi();
 
 
   //HANDLE CHANGE
   function handleChange(e) {
     console.log(e.target.value);
 
-    let key = e.target.name
-    let val = e.target.value
+    const { name, value} = e.target;
 
-    setTodos({...todos, [key]: val })
+    setDataVal((prevDetails) => ({...prevDetails, [name]: value }))
+    // setTodos({...todos, [key]: val })
   };
 
-  //HANDLE SUBMIT
+  //HANDLE SUBMIT....//
   async function handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
+    
     console.log(todos);
 
     try {
-      const response = await axios.post('http://localhost:5000/todo/create', todos)
+      setLoading(true);
+
+      const response = await axios.post('http://localhost:5000/todo/create', dataVal);
+
       console.log({response: response.data});
-      getTodo()
+
+      await fetchTodo();
+
     } 
     catch (error) {
-      console.log({error: error.message});
+      console.log({ error: error.message });
+    }
+    finally {
+      setLoading(false)
     }
   };
   
@@ -146,13 +155,17 @@ const PostTodo = () => {
                     // onChange={(e) => 
                     //   {console.log('TITLE LOGGEED', e.target.value),
                     //   setTodos(e.target.value)}}
+                    type='text'
                     label='Title...'
                     name='title'
+                    value={dataVal.title}
                     variant='outlined'              
                   />
                   <TextField 
                     className={classes.field}
                     onChange={handleChange}
+                    type='text'
+                    value={dataVal.about}
                     label='About...'
                     name='about'
                     variant='outlined'
@@ -177,7 +190,7 @@ const PostTodo = () => {
             </div>
           }
 
-            <GetTodos/>
+            <GetTodos loading={loading}/>
 
           </CardContent>
 

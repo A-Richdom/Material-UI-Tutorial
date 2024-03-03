@@ -7,7 +7,7 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useParams } from 'react-router-dom';
-import { todoApi } from './HOOKS/todoApi.js'
+import { todoApi } from '../TO-DO PROJECT/HOOKS/todoApi';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -17,7 +17,13 @@ const useStyles = makeStyles((theme) => ({
     overflowX: 'hidden',
     marginTop: '30px',
   },
-  
+  loadingDiv: {
+    color: 'white',
+    fontFamily: theme.typography.fontFamily,
+    fontWeight: theme.typography.fontWeightBold,
+    display: 'flex',
+    justifyContent: 'space-around'
+  },
   sectionContent: {
     width: '320px',
     minHeight: '60px',
@@ -81,47 +87,42 @@ const useStyles = makeStyles((theme) => ({
 
 const GetTodo = () => {
   const classes = useStyles()
-  const {id} = useParams()
-  const [todos, setTodos] = useState([]);
-  const [iconsWrapperVisible, setIconsWrapperVisible] = useState(null);
+  const { id } = useParams()
+
+  const { 
+    details,
+    setDetails,
+    loading,
+    setLoading,
+    todos,
+    setTodos,
+    iconsWrapperVisible,
+    setIconsWrapperVisible,
+    getTodos,
+    fetchTodo,
+    handleDelete,
+    handleEdit,
+  }  = todoApi();
+
 
   useEffect(() => {
-    todoApi(setTodos)
+    const fetchData = async () => {
+
+      setLoading(true);
+      
+      setTimeout(async () => {
+        await fetchTodo();  
+
+        setLoading(false)
+      }, 3000);
+    };  
+  fetchData();
+
   }, [id])
 
-  // //FETCHING FUNCTION
-  // async function getTodo() {
-
-  //   try {
-  //     const response = await axios.get('http://localhost:5000/todo/getAll')
-  //     const todosData = response.data.data.map(todo => ({ ...todo, iconsWrapperVisible: false }));
-  //     setTodos(todosData);
-  //     console.log('Response from API:', response.data);
-  //   } 
-  //   catch (error) {
-  //     console.log({ error: error.message });
-  //   }
-  // };
 
   function handleBtnContent(index) {
     setIconsWrapperVisible((prevState) => (prevState === index ? null : index))
-  };
-
-
-  //DELETE FUNCTION
-  const handleDelete = async (id) => {
-
-    console.log('Deleting todo with ID:', id);
-
-    try {
-      const {data} = await axios.delete(`http://localhost:5000/todo/delete/${id}`)
-      console.log(id);
-
-      console.log(data);
-    } 
-    catch (error) {
-      console.log({ error: error.message });
-    }
   };
 
 
@@ -129,6 +130,11 @@ const GetTodo = () => {
     <main>
 
       <div className={classes.divContainer}>
+          {loading && 
+            (<span className={classes.loadingDiv}>
+              LOADING...
+            </span>
+          )}
         
           {todos.map((todo, i) => (
             <section key={todo._id} >
