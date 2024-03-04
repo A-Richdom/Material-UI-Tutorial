@@ -12,6 +12,7 @@ import PostTodo from './Components/TO-DO PROJECT/PostTodo';
 import GetTodos from './Components/TO-DO PROJECT/GetTodos';
 import GetTodosOutlet from './Components/TO-DO PROJECT/GetTodosOutlet';
 import SingleTodo from './Components/TO-DO PROJECT/SingleTodo';
+import UpdateTodo from './Components/TO-DO PROJECT/UpdateTodo';
 
 
 
@@ -20,6 +21,8 @@ const router = createBrowserRouter([
   { path: 'todo', element: <ToDoApp />},
 
   { path: 'postTodo', element: <PostTodo />},
+
+  { path: 'updateTodo', element: <UpdateTodo />},
 
   {
     path: '/getTodos',

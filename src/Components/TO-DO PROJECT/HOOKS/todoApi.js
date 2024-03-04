@@ -58,9 +58,10 @@ export const todoApi = () => {
 
     try {
       const { data } = await axios.patch(`http://localhost:5000/todo/update/${id}`, dataVal)
-      setDataVal(data)
-      fetchTodo()
 
+      setDataVal(data)
+
+      fetchTodo()
     } 
     catch (error) {
       console.log({ error: error.message });

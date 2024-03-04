@@ -4,7 +4,7 @@ import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import axios from 'axios';
 import GetTodos from './GetTodos';
 import { todoApi } from './/HOOKS/todoApi';
-
+import UpdateTodo from './UpdateTodo';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -104,6 +104,7 @@ notask: {
 const PostTodo = () => {
   const classes = useStyles()
   const [todos, setTodos] = useState({})
+
    const { initialDetails, dataVal, setDataVal, loading, setLoading, fetchTodo } = todoApi();
 
 
@@ -120,13 +121,14 @@ const PostTodo = () => {
   //HANDLE SUBMIT....//
   async function handleSubmit(e) {
     e.preventDefault();
-    
     console.log(todos);
 
     try {
       setLoading(true);
 
       const response = await axios.post('http://localhost:5000/todo/create', dataVal);
+
+      // setTodos(response.data)
 
       console.log({response: response.data});
 
@@ -189,8 +191,10 @@ const PostTodo = () => {
               <p className={classes.notaskText}>No tasks</p>
             </div>
           }
+  <UpdateTodo />
+            <GetTodos />
 
-            <GetTodos loading={loading}/>
+            
 
           </CardContent>
 
