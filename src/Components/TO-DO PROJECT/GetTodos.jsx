@@ -190,6 +190,6 @@ const GetTodo = () => {
       
     </main>
   )
-};
+}
 
 export default GetTodo
