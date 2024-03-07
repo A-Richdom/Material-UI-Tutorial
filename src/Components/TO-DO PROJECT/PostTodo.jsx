@@ -114,7 +114,7 @@ const PostTodo = () => {
 
     const { name, value} = e.target;
 
-    setDataVal((prevDetails) => ({...prevDetails, [name]: value }))
+    // setDataVal((prevDetails) => ({...prevDetails, [name]: value }))
     // setTodos({...todos, [key]: val })
   };
 
@@ -123,12 +123,24 @@ const PostTodo = () => {
     e.preventDefault();
     console.log(todos);
 
+    // Check if the entered data already exists
+  const isDuplicate = todos.some(todo => (
+    todo.title === dataVal.title && todo.about === dataVal.about
+  ));
+
+    if (isDuplicate) {
+      alert('This detail already exists!');
+      return;
+    }
+
     try {
       setLoading(true);
 
+
+
       const response = await axios.post('http://localhost:5000/todo/create', dataVal);
 
-      // setTodos(response.data)
+      setTodos(prevTodos => [...prevTodos, response.data]);
 
       console.log({response: response.data});
 
@@ -195,8 +207,6 @@ const PostTodo = () => {
         {/* <UpdateTodo /> */}
 
             <GetTodos />
-
-            
 
           </CardContent>
 

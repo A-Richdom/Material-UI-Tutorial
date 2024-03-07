@@ -1,4 +1,4 @@
-import { Typography, makeStyles, Button } from '@material-ui/core'
+import { Typography, makeStyles, Button, Card, CardContent, Container } from '@material-ui/core'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import ClearIcon from '@mui/icons-material/Clear';
@@ -6,14 +6,19 @@ import ShareRoundedIcon from '@mui/icons-material/ShareRounded';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { todoApi } from '../TO-DO PROJECT/HOOKS/todoApi';
-import UpdateTodo from './UpdateTodo';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
+import XIcon from '@mui/icons-material/X';
+import GoogleIcon from '@mui/icons-material/Google';
+// import { handleInfo } from './SingleTodo';
+// import UpdateTodo from './UpdateTodo';
 
 
 const useStyles = makeStyles((theme) => ({
   divContainer: {
-    height: '200px',
+    height: '180px',
     overflow: 'auto',
     overflowX: 'hidden',
     marginTop: '30px',
@@ -89,14 +94,35 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '4px',
     padding: '8px',
     cursor: 'pointer'
-
+  },
+  shareIcons: {
+    width: '55%',  
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '10px',
+    backgroundColor: '#242319',
+    color: 'whitesmoke',
+    padding: '10px',
+    borderRadius: '5px',
+    marginBottom: '10px',
+  },
+  icon: {
+    display: 'flex',
+    alignItems: 'center',
+    fontSize: '20px',
+    backgroundColor: '#1b1a17',
+    borderRadius: '50px',
+    padding: '10px',
+    cursor: 'pointer',
   }
 }));
 
 const GetTodo = () => {
   const classes = useStyles()
   const { id } = useParams()
-  const [updateComponentVisible, setUpdateComponentVisible] = useState(null)
+  // const [updateComponentVisible, setUpdateComponentVisible] = useState(null)
+  const [shareIconsVisibility, setShareIconsVisibility] = useState(null)
 
   const { 
     details,
@@ -110,6 +136,7 @@ const GetTodo = () => {
     getTodos,
     fetchTodo,
     handleDelete,
+    handleInfo,
   }  = todoApi();
 
 
@@ -128,7 +155,7 @@ const GetTodo = () => {
 
   }, [id])
 
-
+  //HANDLE ICONs BUTTON FUNCTION...//
   function handleIconsBtn(index) {
     setIconsWrapperVisible((prevState) => (prevState === index ? null : index))
   };
@@ -136,6 +163,10 @@ const GetTodo = () => {
   //HANDLE EDIT FUNC...//
   function handleEdit(index) {
     setUpdateComponentVisible((prevState) => (prevState === index ? null : index))
+  };
+  //HANDLE SHARE FUNC...//
+  function handleShare(index) {
+    setShareIconsVisibility((prevState) => (prevState === index ? null : index))
   };
 
 
@@ -149,7 +180,7 @@ const GetTodo = () => {
             </span>
           )}
         
-          {todos.map((todo, i) => (
+          { todos.map((todo, i) => (
             <section key={todo._id} >
 
               <div className={classes.sectionContent}>
@@ -159,11 +190,7 @@ const GetTodo = () => {
                 </div>
 
                 {/* BTNS ICONS WRAPPERS */}
-                <Button
-                  className={classes.btnContent}
-                  variant='outlined'
-                  onClick={() => handleIconsBtn(i)}
-                >
+                <Button className={classes.btnContent} variant='outlined' onClick={() => handleIconsBtn(i)}>
                   <div className={classes.iconWrapper}>
                     <ClearIcon style={{ fontSize: '15px' }} className={classes.iconContent}/>
                   </div>
@@ -171,13 +198,13 @@ const GetTodo = () => {
               </div>
 
               
-              {/* DROP-DOWN BTNS */}
+              {/* ICONs BTN DROP-DOWN */}
               {iconsWrapperVisible !== null && iconsWrapperVisible === i && (
                 <div className={classes.iconsWrapper}>
                   <ShareRoundedIcon 
                     style={{ fontSize: '16px' }} 
                     className={classes.buttonIconStyle}
-                    onClick={() =>{console.log('clicked')}}
+                    onClick={() => handleShare(i)}
                   />
                   <InfoOutlinedIcon 
                     style={{ fontSize: '16px' }} 
@@ -197,6 +224,19 @@ const GetTodo = () => {
                 </div>
 
               )}
+
+              {/*  */}
+              {shareIconsVisibility !== null && shareIconsVisibility === i && (
+                  <Container>
+                    <div className={classes.shareIcons}>
+                      <WhatsAppIcon className={classes.icon} style={{ fontSize: '12px' }}/>
+                      <FacebookOutlinedIcon className={classes.icon} style={{ fontSize: '12px' }}/>
+                      <XIcon className={classes.icon} style={{ fontSize: '12px' }}/>
+                      <GoogleIcon className={classes.icon} style={{ fontSize: '12px' }}/>
+                    </div>
+                  </Container>
+                    
+              )}
                {/* CONDITIONALLY RENDER UPDATE COMPONENT */}
           {/* { updateComponentVisible !== null &&  (
                 <UpdateTodo />
@@ -208,11 +248,10 @@ const GetTodo = () => {
             
           ))}
 
-        
       </div>
       
     </main>
   )
-};
+}
 
 export default GetTodo
