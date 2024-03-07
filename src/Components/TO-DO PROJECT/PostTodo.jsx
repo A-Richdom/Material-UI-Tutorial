@@ -191,7 +191,9 @@ const PostTodo = () => {
               <p className={classes.notaskText}>No tasks</p>
             </div>
           }
-  <UpdateTodo />
+
+        {/* <UpdateTodo /> */}
+
             <GetTodos />
 
             

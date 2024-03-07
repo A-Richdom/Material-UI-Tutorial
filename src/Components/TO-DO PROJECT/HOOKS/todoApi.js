@@ -54,7 +54,7 @@ export const todoApi = () => {
   };
 
   //UPDATE TODO FUNCTION...//
-  const handleEdit = async () => {
+  const handleSave = async (id) => {
 
     try {
       const { data } = await axios.patch(`http://localhost:5000/todo/update/${id}`, dataVal)
@@ -80,6 +80,7 @@ export const todoApi = () => {
     getTodos,
     fetchTodo,
     handleDelete,
-    handleEdit,
+    handleSave,
+    
   };
 };

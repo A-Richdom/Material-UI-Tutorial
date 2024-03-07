@@ -8,11 +8,12 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useParams } from 'react-router-dom';
 import { todoApi } from '../TO-DO PROJECT/HOOKS/todoApi';
+import UpdateTodo from './UpdateTodo';
 
 
 const useStyles = makeStyles((theme) => ({
   divContainer: {
-    height: '160px',
+    height: '200px',
     overflow: 'auto',
     overflowX: 'hidden',
     marginTop: '30px',
@@ -26,7 +27,8 @@ const useStyles = makeStyles((theme) => ({
   },
   sectionContent: {
     width: '320px',
-    minHeight: '60px',
+    height: '70px',
+    // minHeight: '80px',
     display: 'flex',
     justifyContent: 'space-between',
     border: '2px solid #ff8303',
@@ -36,19 +38,25 @@ const useStyles = makeStyles((theme) => ({
   },
   textContent: {
     display: 'flex',
+    width: '75%',
     flexDirection: 'column',
     justifyContent: 'center',
+    
   },
   typo: {
     fontSize: '1.5rem',
-    color: 'whitesmoke'
+    color: 'whitesmoke',
+    overflow: 'hidden',
+    flexGrow: '1',
   },
   lastTypo: {
     display: 'flex',
     flexDirection: 'column',
+    // width: '10px',
     flexWrap: 'wrap',
     color: 'whitesmoke',
     overflow: 'hidden',
+    flexGrow: '1',
     textOverflow: 'ellipsis',
     paddingRight: '0px 30px 0px 0px',
     // whiteSpace: 'nowrap',
@@ -88,6 +96,7 @@ const useStyles = makeStyles((theme) => ({
 const GetTodo = () => {
   const classes = useStyles()
   const { id } = useParams()
+  const [updateComponentVisible, setUpdateComponentVisible] = useState(null)
 
   const { 
     details,
@@ -101,7 +110,6 @@ const GetTodo = () => {
     getTodos,
     fetchTodo,
     handleDelete,
-    handleEdit,
   }  = todoApi();
 
 
@@ -114,15 +122,20 @@ const GetTodo = () => {
         await fetchTodo();  
 
         setLoading(false)
-      }, 3000);
+      }, 1000);
     };  
   fetchData();
 
   }, [id])
 
 
-  function handleBtnContent(index) {
+  function handleIconsBtn(index) {
     setIconsWrapperVisible((prevState) => (prevState === index ? null : index))
+  };
+
+  //HANDLE EDIT FUNC...//
+  function handleEdit(index) {
+    setUpdateComponentVisible((prevState) => (prevState === index ? null : index))
   };
 
 
@@ -142,13 +155,14 @@ const GetTodo = () => {
               <div className={classes.sectionContent}>
                 <div className={classes.textContent}>
                   <Typography  className={classes.typo}>{todo.title}</Typography>
-                  <Typography variant='body1' className={classes.lastTypo}>{todo.about}</Typography>
+                  <Typography className={classes.lastTypo}>{todo.about}</Typography>
                 </div>
 
+                {/* BTNS ICONS WRAPPERS */}
                 <Button
                   className={classes.btnContent}
                   variant='outlined'
-                  onClick={() => handleBtnContent(i)}
+                  onClick={() => handleIconsBtn(i)}
                 >
                   <div className={classes.iconWrapper}>
                     <ClearIcon style={{ fontSize: '15px' }} className={classes.iconContent}/>
@@ -156,7 +170,7 @@ const GetTodo = () => {
                 </Button>
               </div>
 
-
+              
               {/* DROP-DOWN BTNS */}
               {iconsWrapperVisible !== null && iconsWrapperVisible === i && (
                 <div className={classes.iconsWrapper}>
@@ -178,18 +192,27 @@ const GetTodo = () => {
                   <EditIcon  
                     style={{ fontSize: '16px' }} 
                     className={classes.buttonIconStyle}
-                    onClick={() => handleEdit}
+                    onClick={() => handleEdit(i)}
                   />
                 </div>
+
               )}
-            
+               {/* CONDITIONALLY RENDER UPDATE COMPONENT */}
+          {/* { updateComponentVisible !== null &&  (
+                <UpdateTodo />
+              )}
+             */}
+
+             
             </section> 
+            
           ))}
+
         
       </div>
       
     </main>
   )
-}
+};
 
 export default GetTodo
