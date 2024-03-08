@@ -1,20 +1,44 @@
 import axios from 'axios'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { todoApi } from './HOOKS/todoApi';
-import { makeStyles } from '@material-ui/core';
+import { Button, Card, CardContent, Typography, makeStyles } from '@material-ui/core';
+import ClearIcon from '@mui/icons-material/Clear';
+import ShareRoundedIcon from '@mui/icons-material/ShareRounded';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({  
+  cardContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: '100vh',
+   
+  },
+  card: {
+    backgroundColor: '#1b1a17',
+    width: '390px',
+    height: '40vh',
+    display: 'flex',
+    justifyContent: 'center',
+    borderRadius: '20px'
+  },
+  cardContent: {
+    padding:'30px 60px',
+  },
   divContainer: {
     height: '180px',
     overflow: 'auto',
     overflowX: 'hidden',
     marginTop: '30px',
+    color: 'black'
   },
   loadingDiv: {
-    color: 'white',
+    color: 'black',
     fontFamily: theme.typography.fontFamily,
     fontWeight: theme.typography.fontWeightBold,
     display: 'flex',
@@ -69,7 +93,6 @@ const useStyles = makeStyles((theme) => ({
   iconContent: {
     fontSize: '10px',  // The icon size is not reducing 
     padding: '8px'
-
   },
   iconsWrapper: {
     display: 'flex',  
@@ -84,70 +107,86 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '4px',
     padding: '8px',
     cursor: 'pointer'
-
   }
 }));
 
 const SingleTodo = () => {
   const { id } = useParams();
-  const [todo, setTodo] = useState([]);
   const classes = useStyles();
+  const [currentIndex, setCurrentIndex] = useState(null);
+  const { iconsWrapperVisible, setIconsWrapperVisible, handleDelete, handleEdit, handleInfo, todos } = todoApi();
 
-  const { iconsWrapperVisible, setIconsWrapperVisible, handleDelete, handleEdit, handleIconsBtn, handleInfo } = todoApi();
+  console.log(currentIndex);
+
+  function handleIconsBtn(index) {
+    setIconsWrapperVisible((prevState) => (prevState === index ? null : index))
+    setCurrentIndex(index)
+
+    console.log(setCurrentIndex(index));
+  };
+
+  console.log(todos,';mee');
 
    //GET SINGLE TODO.....
    useEffect(() => {
-    handleInfo();
+    handleInfo(id);
   }, [id]);
 
+  if(todos.data)
+
   return (
-    <div>
-      <div className={classes.sectionContent}>
-                <div className={classes.textContent}>
-                  <Typography  className={classes.typo}>{todo.title}</Typography>
-                  <Typography className={classes.lastTypo}>{todo.about}</Typography>
+    <div className={classes.cardContainer}>
+      {/* <p>{todos.data.title}</p> */}
+      < Card className={classes.card}>
+        <CardContent className={classes.cardContent}>
+          <div className={classes.sectionContent}>
+                  <div className={classes.textContent}>
+                    <Typography  className={classes.typo}>{todos?.data?.title}</Typography>
+                    <Typography className={classes.lastTypo}>{todos?.data?.about}</Typography>
 
-                  {/* <small>{todo._id}</small> */}
-                </div>
-
-                {/* BTNS ICONS WRAPPERS */}
-                <Button className={classes.btnContent} variant='outlined' onClick={() => handleIconsBtn(i)}>
-                  <div className={classes.iconWrapper}>
-                    <ClearIcon style={{ fontSize: '15px' }} className={classes.iconContent}/>
+                    {/* <small>{todos?.data?._id}</small>/ */}
                   </div>
-                </Button>
-              </div>
 
-              
-              {/* DROP-DOWN BTNS */}
-              {iconsWrapperVisible !== null && iconsWrapperVisible === i && (
-                <div className={classes.iconsWrapper}>
-                  <ShareRoundedIcon 
-                    style={{ fontSize: '16px' }} 
-                    className={classes.buttonIconStyle}
-                    onClick={() =>{console.log('clicked')}}
-                  />
-                  <InfoOutlinedIcon 
-                    style={{ fontSize: '16px' }} 
-                    className={classes.buttonIconStyle}
-                    onClick={() =>  handleInfo(todo._id)}
-                  />
-                  <DeleteForeverIcon 
-                    style={{ fontSize: '16px' }} 
-                    className={classes.buttonIconStyle}
-                    onClick={() => handleDelete(todo._id)}
-                  />
-                  <EditIcon  
-                    style={{ fontSize: '16px' }} 
-                    className={classes.buttonIconStyle}
-                    onClick={() => handleEdit}
-                  />
-                </div>
+                  {/* BTNS ICONS WRAPPERS */}
+                  <Button className={classes.btnContent} variant='outlined' onClick={() => handleIconsBtn(todos?.data?._id)}>
+                    <div className={classes.iconWrapper}>
+                      <ClearIcon style={{ fontSize: '15px' }} className={classes.iconContent}/>
+                    </div>
+                  </Button>
+          </div>
 
-              )}
+                
+                {/* ICONs BTN DROP-DOWN */}
+                {iconsWrapperVisible !== null && iconsWrapperVisible === todos?.data?._id && (
+                  <div className={classes.iconsWrapper}>
+                    <ShareRoundedIcon 
+                      style={{ fontSize: '16px' }} 
+                      className={classes.buttonIconStyle}
+                      onClick={() =>{console.log('clicked')}}
+                    />
+                    <InfoOutlinedIcon 
+                      style={{ fontSize: '16px' }} 
+                      className={classes.buttonIconStyle}
+                      onClick={() =>  handleInfo(todos?.data?._id)}
+                    />
+                    <DeleteForeverIcon 
+                      style={{ fontSize: '16px' }} 
+                      className={classes.buttonIconStyle}
+                      onClick={() => handleDelete(todos?.data?._id)}
+                    />
+                    <EditIcon  
+                      style={{ fontSize: '16px' }} 
+                      className={classes.buttonIconStyle}
+                      onClick={() => handleEdit}
+                    />
+                  </div>
+
+              )};
+        </CardContent>
+      </Card>
 
     </div>
   )
-}
+};
 
 export default SingleTodo

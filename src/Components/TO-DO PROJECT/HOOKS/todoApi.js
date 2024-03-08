@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import axios from 'axios';
-// import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 
 export const todoApi = () => {
@@ -15,8 +15,7 @@ export const todoApi = () => {
     const [loading, setLoading] = useState(false);
     const [todos, setTodos] = useState([]);
     const [iconsWrapperVisible, setIconsWrapperVisible] = useState(null);
-    // const { id } = useParams;
-
+    const {id} = useParams();
 
     //FETCHING TODOs FUNCTION....//
   const getTodos = async () => {
@@ -31,7 +30,6 @@ export const todoApi = () => {
       console.log({ error: error.message });
       setTodos([]);
     }
-  
   };
 
   const fetchTodo = async() => {
@@ -42,6 +40,7 @@ export const todoApi = () => {
   const handleInfo = async (id) => {
     try {
       const { data } = await axios.get(`http://localhost:5000/todo/getSingle/${id}`);
+      console.log(data);
       setTodos(data);
 
       console.log('Single Todo Fetched', data);

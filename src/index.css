@@ -4,3 +4,7 @@
   /* .iconContent {
     font-size: 100px;
   } */
+.MuiPaper-root{
+  background-color: black !important;
+  background: black;
+}

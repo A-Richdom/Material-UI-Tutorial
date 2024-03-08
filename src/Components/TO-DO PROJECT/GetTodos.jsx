@@ -6,19 +6,18 @@ import ShareRoundedIcon from '@mui/icons-material/ShareRounded';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { todoApi } from '../TO-DO PROJECT/HOOKS/todoApi';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import XIcon from '@mui/icons-material/X';
 import GoogleIcon from '@mui/icons-material/Google';
-// import { handleInfo } from './SingleTodo';
-// import UpdateTodo from './UpdateTodo';
+import UpdateTodo from './UpdateTodo';
 
 
 const useStyles = makeStyles((theme) => ({
   divContainer: {
-    height: '180px',
+    height: '170px',
     overflow: 'auto',
     overflowX: 'hidden',
     marginTop: '30px',
@@ -118,11 +117,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const GetTodo = () => {
-  const classes = useStyles()
-  const { id } = useParams()
-  // const [updateComponentVisible, setUpdateComponentVisible] = useState(null)
-  const [shareIconsVisibility, setShareIconsVisibility] = useState(null)
+const GetTodo = ({reaction}) => {
+  const classes = useStyles();
+  const { id } = useParams();
+  const [updateComponentVisible, setUpdateComponentVisible] = useState(null)
+  const [shareIconsVisibility, setShareIconsVisibility] = useState(null);
+  const navigate = useNavigate();
 
   const { 
     details,
@@ -153,7 +153,7 @@ const GetTodo = () => {
     };  
   fetchData();
 
-  }, [id])
+  }, [id, reaction])
 
   //HANDLE ICONs BUTTON FUNCTION...//
   function handleIconsBtn(index) {
@@ -168,7 +168,6 @@ const GetTodo = () => {
   function handleShare(index) {
     setShareIconsVisibility((prevState) => (prevState === index ? null : index))
   };
-
 
   return (
     <main>
@@ -209,7 +208,7 @@ const GetTodo = () => {
                   <InfoOutlinedIcon 
                     style={{ fontSize: '16px' }} 
                     className={classes.buttonIconStyle}
-                    onClick={() =>  handleInfo}
+                    onClick={() =>  navigate(`/getTodos/${todo._id}`)}
                   />
                   <DeleteForeverIcon 
                     style={{ fontSize: '16px' }} 
@@ -225,7 +224,7 @@ const GetTodo = () => {
 
               )}
 
-              {/*  */}
+              {/* SHARE ICONs DROP-DOWN */}
               {shareIconsVisibility !== null && shareIconsVisibility === i && (
                   <Container>
                     <div className={classes.shareIcons}>
@@ -236,14 +235,13 @@ const GetTodo = () => {
                     </div>
                   </Container>
                     
-              )}
-               {/* CONDITIONALLY RENDER UPDATE COMPONENT */}
-          {/* { updateComponentVisible !== null &&  (
-                <UpdateTodo />
-              )}
-             */}
+              )};
 
-             
+              {/* CONDITIONALLY RENDER UPDATE COMPONENT */}
+              { updateComponentVisible !== null &&  (
+                <UpdateTodo />
+              )};
+            
             </section> 
             
           ))}
@@ -252,6 +250,6 @@ const GetTodo = () => {
       
     </main>
   )
-}
+};
 
 export default GetTodo

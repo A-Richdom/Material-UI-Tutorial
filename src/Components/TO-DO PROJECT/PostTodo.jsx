@@ -1,10 +1,11 @@
 import { Button, Card, CardContent, Container, TextField, Typography, makeStyles } from '@material-ui/core'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import axios from 'axios';
 import GetTodos from './GetTodos';
 import { todoApi } from './/HOOKS/todoApi';
 import UpdateTodo from './UpdateTodo';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -103,10 +104,17 @@ notask: {
 
 const PostTodo = () => {
   const classes = useStyles()
-  const [todos, setTodos] = useState({})
+  const [reaction, setReaction] = useState([]);
+  // const [updateComponentVisible, setUpdateComponentVisible] = useState(null)
 
-   const { initialDetails, dataVal, setDataVal, loading, setLoading, fetchTodo } = todoApi();
+  const { initialDetails, dataVal, setDataVal, todos,setTodos, loading, setLoading, fetchTodo, getTodos } = todoApi();
 
+  useEffect(()=>{
+    async function getData(){
+     await getTodos()
+    }
+    getData()
+  });
 
   //HANDLE CHANGE
   function handleChange(e) {
@@ -114,7 +122,7 @@ const PostTodo = () => {
 
     const { name, value} = e.target;
 
-    // setDataVal((prevDetails) => ({...prevDetails, [name]: value }))
+    setDataVal((prevDetails) => ({...prevDetails, [name]: value }))
     // setTodos({...todos, [key]: val })
   };
 
@@ -123,20 +131,23 @@ const PostTodo = () => {
     e.preventDefault();
     console.log(todos);
 
-    // Check if the entered data already exists
-  const isDuplicate = todos.some(todo => (
-    todo.title === dataVal.title && todo.about === dataVal.about
-  ));
+    if (!dataVal.title || !dataVal.about) {
+      alert('Enter your details!')
+      return;
+    };
+
+    const isDuplicate = todos.some(
+      (todo) => todo.title === dataVal.title || todo.about === dataVal.about
+    );
 
     if (isDuplicate) {
-      alert('This detail already exists!');
+      alert('This details already Exist!')
       return;
-    }
+    };
+
 
     try {
       setLoading(true);
-
-
 
       const response = await axios.post('http://localhost:5000/todo/create', dataVal);
 
@@ -144,8 +155,8 @@ const PostTodo = () => {
 
       console.log({response: response.data});
 
-      await fetchTodo();
-
+      // await getTodos();
+      setReaction(Math.random())
     } 
     catch (error) {
       console.log({ error: error.message });
@@ -206,7 +217,7 @@ const PostTodo = () => {
 
         {/* <UpdateTodo /> */}
 
-            <GetTodos />
+            <GetTodos reaction={reaction} />
 
           </CardContent>
 
