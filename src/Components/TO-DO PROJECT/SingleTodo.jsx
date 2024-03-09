@@ -2,12 +2,16 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { todoApi } from './HOOKS/todoApi';
-import { Button, Card, CardContent, Typography, makeStyles } from '@material-ui/core';
+import { Button, Card, CardContent, Container, Typography, makeStyles } from '@material-ui/core';
 import ClearIcon from '@mui/icons-material/Clear';
 import ShareRoundedIcon from '@mui/icons-material/ShareRounded';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
+import XIcon from '@mui/icons-material/X';
+import GoogleIcon from '@mui/icons-material/Google';
 
 
 
@@ -16,8 +20,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    minHeight: '100vh',
-   
+    minHeight: '100vh', 
   },
   card: {
     backgroundColor: '#1b1a17',
@@ -27,27 +30,15 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     borderRadius: '20px'
   },
+  expandedCard: {
+    height: '50vh',
+  },
   cardContent: {
     padding:'30px 60px',
-  },
-  divContainer: {
-    height: '180px',
-    overflow: 'auto',
-    overflowX: 'hidden',
-    marginTop: '30px',
-    color: 'black'
-  },
-  loadingDiv: {
-    color: 'black',
-    fontFamily: theme.typography.fontFamily,
-    fontWeight: theme.typography.fontWeightBold,
-    display: 'flex',
-    justifyContent: 'space-around'
   },
   sectionContent: {
     width: '320px',
     height: '70px',
-    // minHeight: '80px',
     display: 'flex',
     justifyContent: 'space-between',
     border: '2px solid #ff8303',
@@ -107,17 +98,41 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '4px',
     padding: '8px',
     cursor: 'pointer'
-  }
+  },
+  shareIcons: {
+    width: '55%',  
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '10px',
+    backgroundColor: '#242319',
+    color: 'whitesmoke',
+    padding: '10px',
+    borderRadius: '5px',
+    marginBottom: '100px',
+    
+  },
+  icon: {
+    display: 'flex',
+    alignItems: 'center',
+    fontSize: '20px',
+    backgroundColor: '#1b1a17',
+    borderRadius: '50px',
+    padding: '10px',
+    cursor: 'pointer',
+  },
+  
 }));
 
 const SingleTodo = () => {
   const { id } = useParams();
   const classes = useStyles();
   const [currentIndex, setCurrentIndex] = useState(null);
-  const { iconsWrapperVisible, setIconsWrapperVisible, handleDelete, handleEdit, handleInfo, todos } = todoApi();
+  const [shareIconsVisibility, setShareIconsVisibility] = useState(null);
+  const [expanded, setExpanded] = useState(false);
+  const { iconsWrapperVisible, setIconsWrapperVisible,  handleDelete, handleEdit, handleInfo, todos } = todoApi();
 
-  console.log(currentIndex);
-
+  //HANDLE ICONs BUTTON FUNCTION...//
   function handleIconsBtn(index) {
     setIconsWrapperVisible((prevState) => (prevState === index ? null : index))
     setCurrentIndex(index)
@@ -125,9 +140,16 @@ const SingleTodo = () => {
     console.log(setCurrentIndex(index));
   };
 
-  console.log(todos,';mee');
+  //HANDLE SHARE FUNCTION...//
+  function handleShare(index) {
+    setShareIconsVisibility((prevState) => (prevState === index ? null : index));
+    setExpanded((prevState) => !prevState);
+  };
 
-   //GET SINGLE TODO.....
+
+  console.log(todos,';meeeee');
+
+   //GET SINGLE TODO.....x
    useEffect(() => {
     handleInfo(id);
   }, [id]);
@@ -135,9 +157,10 @@ const SingleTodo = () => {
   if(todos.data)
 
   return (
+    
     <div className={classes.cardContainer}>
       {/* <p>{todos.data.title}</p> */}
-      < Card className={classes.card}>
+      < Card className={`${classes.card} ${expanded ? classes.expandedCard: ''}`}>
         <CardContent className={classes.cardContent}>
           <div className={classes.sectionContent}>
                   <div className={classes.textContent}>
@@ -162,7 +185,7 @@ const SingleTodo = () => {
                     <ShareRoundedIcon 
                       style={{ fontSize: '16px' }} 
                       className={classes.buttonIconStyle}
-                      onClick={() =>{console.log('clicked')}}
+                      onClick={() => handleShare(todos?.data?._id)}
                     />
                     <InfoOutlinedIcon 
                       style={{ fontSize: '16px' }} 
@@ -180,7 +203,18 @@ const SingleTodo = () => {
                       onClick={() => handleEdit}
                     />
                   </div>
+              )};
 
+              {/* SHARE ICONs DROP-DOWN */}
+              {shareIconsVisibility !== null && shareIconsVisibility === currentIndex && (
+                  <Container>
+                    <div className={classes.shareIcons} >
+                      <WhatsAppIcon className={classes.icon} style={{ fontSize: '12px' }}/>
+                      <FacebookOutlinedIcon className={classes.icon} style={{ fontSize: '12px' }}/>
+                      <XIcon className={classes.icon} style={{ fontSize: '12px' }}/>
+                      <GoogleIcon className={classes.icon} style={{ fontSize: '12px' }}/>
+                    </div>
+                  </Container>   
               )};
         </CardContent>
       </Card>

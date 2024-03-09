@@ -114,7 +114,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '50px',
     padding: '10px',
     cursor: 'pointer',
-  }
+  },
 }));
 
 const GetTodo = ({reaction}) => {
