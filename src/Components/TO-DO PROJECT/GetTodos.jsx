@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-around'
   },
   sectionContent: {
-    width: '320px',
+    width: '295px',
     height: '70px',
     // minHeight: '80px',
     display: 'flex',
@@ -39,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '10px',
     padding: '0 0 0 20px',
     marginBottom: '10px',
+    marginLeft: '4px',
   },
   textContent: {
     display: 'flex',
@@ -189,6 +190,7 @@ const GetTodo = ({reaction}) => {
                 </div>
 
                 {/* BTNS ICONS WRAPPERS */}
+                
                 <Button className={classes.btnContent} variant='outlined' onClick={() => handleIconsBtn(i)}>
                   <div className={classes.iconWrapper}>
                     <ClearIcon style={{ fontSize: '15px' }} className={classes.iconContent}/>
@@ -234,7 +236,6 @@ const GetTodo = ({reaction}) => {
                       <GoogleIcon className={classes.icon} style={{ fontSize: '12px' }}/>
                     </div>
                   </Container>
-                    
               )};
 
               {/* CONDITIONALLY RENDER UPDATE COMPONENT */}
