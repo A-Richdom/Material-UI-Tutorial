@@ -190,7 +190,7 @@ const GetTodo = ({reaction}) => {
                 </div>
 
                 {/* BTNS ICONS WRAPPERS */}
-                
+
                 <Button className={classes.btnContent} variant='outlined' onClick={() => handleIconsBtn(i)}>
                   <div className={classes.iconWrapper}>
                     <ClearIcon style={{ fontSize: '15px' }} className={classes.iconContent}/>
@@ -251,6 +251,6 @@ const GetTodo = ({reaction}) => {
       
     </main>
   )
-}
+};
 
 export default GetTodo
