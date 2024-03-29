@@ -253,4 +253,4 @@ const GetTodo = ({reaction}) => {
   )
 }
 
-export default GetTodo
+export default GetTodo;
