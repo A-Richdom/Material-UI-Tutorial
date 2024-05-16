@@ -248,9 +248,10 @@ const GetTodo = ({reaction}) => {
           ))}
 
       </div>
+      <div></div>
       
     </main>
   )
-};
+}
 
 export default GetTodo;
